@@ -38,11 +38,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User authenticate(String username, String password) {
         Optional<User> userOptional = userRepository.findByUsername(username);
-        if (!userOptional.isPresent() ||
-                !passwordEncoder.matches(password, userOptional.get().getPassword())) {
-            throw new RuntimeException("用户不存在或密码错误");
+        if (!userOptional.isPresent()) {
+            throw new RuntimeException("用户不存在");
         }
-        return userOptional.get();
+
+        User user = userOptional.get();
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new RuntimeException("密码错误");
+        }
+        return user;
     }
 
     @Override

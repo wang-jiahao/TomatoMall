@@ -3,34 +3,56 @@ package com.example.tomatomall.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import com.example.tomatomall.po.User;
+import com.example.tomatomall.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.Date;
+import java.util.Optional;
 
-@Component // 关键注解，确保被 Spring 管理
+@Component
 public class JwtUtils {
-    private static final String SECRET_KEY = "your-256-bit-secret-key-here"; // 替换为实际密钥
-    private static final long EXPIRATION_TIME = 86400000; // Token 有效期 24 小时
+    private static final long EXPIRATION_TIME = 86400000; // 24小时
 
-    // 生成 Token（基于用户名）
+    @Autowired
+    private UserRepository userRepository;
+
+    // 生成 Token（基于用户名，使用用户密码作为动态密钥）
     public String generateToken(String username) {
+        // 从 Optional<User> 中提取用户对象，若不存在则抛出异常
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("用户不存在"));
+
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .signWith(SignatureAlgorithm.HS256, user.getPassword())
                 .compact();
     }
 
     // 验证 Token 并返回用户名
     public String validateToken(String token) {
         try {
+            // 先解析 Token 头获取用户名（无需密钥）
+            String username = Jwts.parser()
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
+
+            // 从 Optional<User> 中提取用户对象，若不存在则抛出异常
+            User user = userRepository.findByUsername(username)
+                    .orElseThrow(() -> new RuntimeException("用户不存在"));
+
+            // 使用用户密码重新验证 Token
             Claims claims = Jwts.parser()
-                    .setSigningKey(SECRET_KEY)
+                    .setSigningKey(user.getPassword())
                     .parseClaimsJws(token)
                     .getBody();
+
             return claims.getSubject();
         } catch (Exception e) {
-            throw new RuntimeException("Token 无效或已过期");
+            throw new RuntimeException("Token 无效或已过期: " + e.getMessage());
         }
     }
 }
