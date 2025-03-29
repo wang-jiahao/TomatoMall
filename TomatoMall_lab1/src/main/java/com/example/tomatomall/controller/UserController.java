@@ -4,6 +4,7 @@ import com.example.tomatomall.po.User;
 import com.example.tomatomall.service.UserService;
 import com.example.tomatomall.util.JwtUtils;
 import com.example.tomatomall.vo.LoginVO;
+import com.example.tomatomall.vo.Response;
 import com.example.tomatomall.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,12 +27,12 @@ public class UserController {
 
     // 用户注册
     @PostMapping
-    public ResponseEntity<?> register(@RequestBody UserVO userVO) {
+    public ResponseEntity<Response<String>> register(@RequestBody UserVO userVO) {
         try {
             userService.register(userVO);
-            return ResponseEntity.ok("注册成功");
+            return ResponseEntity.ok(Response.buildSuccess("注册成功"));
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Response.buildFailure(e.getMessage(),"400"));
         }
     }
 
@@ -43,9 +44,10 @@ public class UserController {
             String token = jwtUtils.generateToken(user.getUsername());
             return ResponseEntity.ok()
                     .header("token", token) // 在响应头中添加 Token
-                    .body("登录成功");
+                    .body(Response.buildSuccess(token));
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Response.buildFailure("用户不存在/用户密码错误","401"));
         }
     }
 

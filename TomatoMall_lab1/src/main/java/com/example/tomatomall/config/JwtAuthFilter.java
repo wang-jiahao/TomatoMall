@@ -23,6 +23,15 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
+        String path = request.getRequestURI();
+        // 放行注册和登录接口
+        if (path.startsWith("/api/accounts") && (
+                path.equals("/api/accounts") ||
+                        path.equals("/api/accounts/login")
+        ))  {
+            filterChain.doFilter(request, response);
+            return;
+        }
         String token = request.getHeader("token");
         if (token != null) {
             try {
@@ -32,8 +41,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 );
             } catch (Exception e) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token无效");
-                return;
             }
+        } else {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "缺少 Token");
+            return;
         }
         filterChain.doFilter(request, response);
     }
