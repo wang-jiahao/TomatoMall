@@ -4,6 +4,7 @@ import com.example.tomatomall.po.User;
 import com.example.tomatomall.service.UserService;
 import com.example.tomatomall.util.JwtUtils;
 import com.example.tomatomall.vo.LoginVO;
+import com.example.tomatomall.vo.Response;
 import com.example.tomatomall.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,9 +30,12 @@ public class UserController {
     public ResponseEntity<?> register(@RequestBody UserVO userVO) {
         try {
             userService.register(userVO);
-            return ResponseEntity.ok("注册成功");
+            // 使用 Response.buildSuccess 包装成功响应
+            return ResponseEntity.ok(Response.buildSuccess("注册成功"));
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            // 注册失败时的响应
+            return ResponseEntity.badRequest()
+                    .body(Response.buildFailure(e.getMessage(), "400"));
         }
     }
 
@@ -41,9 +45,10 @@ public class UserController {
         try {
             User user = userService.authenticate(loginVO.getUsername(), loginVO.getPassword());
             String token = jwtUtils.generateToken(user.getUsername());
+            // 使用 Response.buildSuccess 包装响应，并设置标准的 Authorization 头
             return ResponseEntity.ok()
-                    .header("token", token) // 在响应头中添加 Token
-                    .body("登录成功");
+                    .header("Authorization", "Bearer " + token)
+                    .body(Response.buildSuccess(token));
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
@@ -71,14 +76,21 @@ public class UserController {
     @PutMapping
     public ResponseEntity<?> updateUser(
             @RequestBody UserVO userVO,
-            @RequestHeader("token") String token
+            @RequestHeader("Authorization") String authHeader
     ) {
         try {
+            String token = authHeader.replace("Bearer ", "");
             String username = jwtUtils.validateToken(token);
+            // 新增用户名修改校验
+            if (userVO.getUsername() != null && !userVO.getUsername().equals(username)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body(Response.buildFailure("无权修改用户名", "403"));
+            }
             userService.updateUser(username, userVO);
-            return ResponseEntity.ok("更新成功");
+            return ResponseEntity.ok(Response.buildSuccess("更新成功"));
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest()
+                    .body(Response.buildFailure(e.getMessage(), "400"));
         }
     }
 }
