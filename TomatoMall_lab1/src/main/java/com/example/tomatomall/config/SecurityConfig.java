@@ -31,7 +31,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/accounts", "/api/accounts/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/accounts").permitAll()  // 允许注册
+                .antMatchers(HttpMethod.POST, "/api/accounts/login").permitAll() // 明确允许登录
+                .antMatchers(HttpMethod.GET, "/api/accounts/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/accounts").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
