@@ -20,6 +20,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(UserVO userVO) {
+        // 校验角色字段
+        if (userVO.getRole() == null ||
+            (!userVO.getRole().equals("user") && !userVO.getRole().equals("admin"))) {
+            throw new RuntimeException("角色必须为 user 或 admin");
+        }
         // 校验用户名唯一性
         if (userRepository.findByUsername(userVO.getUsername()).isPresent()) {
             throw new RuntimeException("用户名已存在");
@@ -64,7 +69,11 @@ public class UserServiceImpl implements UserService {
         if (userVO.getPassword() != null) {
             userPO.setPassword(passwordEncoder.encode(userVO.getPassword()));
         }
-        // 其他字段更新类似...
+        if (userVO.getAvatar() != null) userPO.setAvatar(userVO.getAvatar());
+        if (userVO.getTelephone() != null) userPO.setTelephone(userVO.getTelephone());
+        if (userVO.getEmail() != null) userPO.setEmail(userVO.getEmail());
+        if (userVO.getLocation() != null) userPO.setLocation(userVO.getLocation());
+
         return userRepository.save(userPO);
     }
 

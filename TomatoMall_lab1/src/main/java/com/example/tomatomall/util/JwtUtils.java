@@ -1,8 +1,6 @@
 package com.example.tomatomall.util;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
@@ -15,27 +13,27 @@ public class JwtUtils {
     private static final long EXPIRATION_TIME = 86400000; // Token 有效期 24 小时
 
     // 生成 Token（基于用户名）
-    public String generateToken(String username) {
-        return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
-                .compact();
-    }
+    public String generateToken(String username, String role) {
+    return Jwts.builder()
+            .setSubject(username)
+            .claim("role", role) // 添加角色声明
+            .setIssuedAt(new Date())
+            .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+            .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+            .compact();
+}
 
     // 验证 Token 并返回用户名
-    public String validateToken(String token) {
+    public Claims validateToken(String token) {
         try {
-            Claims claims = Jwts.parserBuilder()
-                .setSigningKey(SECRET_KEY)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-            return claims.getSubject();
-        } catch (io.jsonwebtoken.ExpiredJwtException e) {
+            return Jwts.parserBuilder()
+                    .setSigningKey(SECRET_KEY)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (ExpiredJwtException e) {
             throw new RuntimeException("Token 已过期");
-        } catch (io.jsonwebtoken.MalformedJwtException e) {
+        } catch (MalformedJwtException e) {
             throw new RuntimeException("Token 格式错误");
         } catch (Exception e) {
             throw new RuntimeException("Token 无效");

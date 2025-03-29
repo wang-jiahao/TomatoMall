@@ -29,9 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/accounts/login", "/api/accounts").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/accounts/**").hasAnyRole("user", "admin")
-                .antMatchers(HttpMethod.PUT, "/api/accounts").hasAnyRole("user", "admin")
-                .antMatchers("/api/admin/**").hasRole("admin") // 假设管理员专属接口
+                .antMatchers(HttpMethod.GET, "/api/accounts/**").hasAnyAuthority("ROLE_user", "ROLE_admin")
+                .antMatchers(HttpMethod.POST, "/api/accounts").hasAnyAuthority("ROLE_user", "ROLE_admin")
+                .antMatchers(HttpMethod.PUT, "/api/accounts").hasAnyAuthority("ROLE_user", "ROLE_admin")
+                .antMatchers("/api/admin/**").hasAuthority("ROLE_admin")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

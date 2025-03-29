@@ -6,6 +6,7 @@ import com.example.tomatomall.util.JwtUtils;
 import com.example.tomatomall.vo.LoginVO;
 import com.example.tomatomall.vo.Response;
 import com.example.tomatomall.vo.UserVO;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,31 +45,42 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody LoginVO loginVO) {
         try {
             User user = userService.authenticate(loginVO.getUsername(), loginVO.getPassword());
-            String token = jwtUtils.generateToken(user.getUsername());
-            // 使用 Response.buildSuccess 包装响应，并设置标准的 Authorization 头
+            String token = jwtUtils.generateToken(user.getUsername(), user.getRole()); // 传入用户名和角色
             return ResponseEntity.ok()
                     .header("Authorization", "Bearer " + token)
                     .body(Response.buildSuccess(token));
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Response.buildFailure(e.getMessage(), "401"));
         }
     }
 
     // 获取用户详情
+    // UserController.java
     @GetMapping("/{username}")
     public ResponseEntity<?> getUser(
             @PathVariable String username,
-            @RequestHeader("token") String token
+            @RequestHeader("Authorization") String authHeader
     ) {
         try {
-            String currentUser = jwtUtils.validateToken(token);
-            if (!currentUser.equals(username)) {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("无权限访问");
+            String token = authHeader.replace("Bearer ", "");
+            Claims claims = jwtUtils.validateToken(token); // 返回 Claims 对象
+            String currentUser = claims.getSubject();      // 从 Claims 中提取用户名
+
+            // 调试日志
+            System.out.println("Token 中的用户名: " + currentUser);
+            System.out.println("URL 中的用户名: " + username);
+
+            if (!currentUser.trim().equalsIgnoreCase(username.trim())) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body(Response.buildFailure("无权限访问", "403"));
             }
+
             UserVO userVO = userService.getUserVOByUsername(username);
-            return ResponseEntity.ok(userVO);
+            return ResponseEntity.ok(Response.buildSuccess(userVO));
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Response.buildFailure(e.getMessage(), "401"));
         }
     }
 
@@ -80,17 +92,23 @@ public class UserController {
     ) {
         try {
             String token = authHeader.replace("Bearer ", "");
-            String username = jwtUtils.validateToken(token);
-            // 新增用户名修改校验
+            Claims claims = jwtUtils.validateToken(token); // 返回 Claims 对象
+            String username = claims.getSubject();        // 从 Claims 中提取用户名
+
             if (userVO.getUsername() != null && !userVO.getUsername().equals(username)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body(Response.buildFailure("无权修改用户名", "403"));
             }
+
             userService.updateUser(username, userVO);
             return ResponseEntity.ok(Response.buildSuccess("更新成功"));
+
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(Response.buildFailure(e.getMessage(), "400"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Response.buildFailure(e.getMessage(), "401"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Response.buildFailure("服务器内部错误", "500"));
         }
     }
 }
