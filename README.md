@@ -1,4 +1,6 @@
- <div style="background-color:#f1f9ff; border-left: 5px solid #4285f4; padding: 10px; margin-bottom: 10px;">  注意：每天写代码前，更新本地代码！！！！</div>
+ <div style="background-color:#f1f9ff; border-left: 5px solid #4285f4; padding: 10px; margin-bottom: 10px;">  注意！！！<br>
+1.每天写代码前，更新本地代码！<br>
+2.不要随意merge到dev分支，不要动main分支！</div>
 
 ### **一、基础开发流程**
 
