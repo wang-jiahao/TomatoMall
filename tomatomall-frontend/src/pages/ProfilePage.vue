@@ -58,17 +58,17 @@ const loadUserInfo = async () => {
 const handleUpdate = async () => {
   try {
     const token = localStorage.getItem('token');
-    const res = await axios.put('/api/accounts', form.value, { // 获取完整响应
+    const res = await axios.put('/api/accounts', form.value, {
       headers: { token }
     });
 
-    // 直接使用更新后的数据（假设后端返回完整用户信息）
     userInfo.value = res.data.data;
     ElMessage.success('更新成功');
     editMode.value = false;
 
-    // 可选：更新 localStorage 中的用户名（如果允许修改用户名）
-    // localStorage.setItem('username', res.data.data.username);
+    // 新增跳转逻辑
+    router.push('/login');  // 跳转到登录页
+
   } catch (error) {
     ElMessage.error(error.response?.data?.msg || '更新失败');
   }

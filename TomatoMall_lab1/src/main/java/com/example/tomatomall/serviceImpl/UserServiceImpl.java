@@ -96,7 +96,16 @@ public class UserServiceImpl implements UserService {
                 userPO.setEmail(userVO.getEmail());
 //                logger.debug("更新用户邮箱: {}", userVO.getEmail());
             }
-            // 其他字段更新...
+            // 更新电话字段
+            if (userVO.getTelephone() != null) {
+                validatePhone(userVO.getTelephone());
+                userPO.setTelephone(userVO.getTelephone());
+            }
+
+            // 更新地址字段
+            if (userVO.getLocation() != null) {
+                userPO.setLocation(userVO.getLocation());
+            }
 
             User updatedUser = userRepository.save(userPO);
 //            logger.info("用户更新成功: {}", username);
