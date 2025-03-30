@@ -1,6 +1,8 @@
 package com.example.tomatomall.config;
 
 import com.example.tomatomall.util.JwtUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
+//    private static final Logger logger = LoggerFactory.getLogger(JwtAuthFilter.class);
     @Autowired
     private JwtUtils jwtUtils;
 
@@ -23,17 +26,32 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
+        String path = request.getRequestURI();
+//        logger.debug("[JwtAuthFilter] 请求路径: {}", path);
+
+        // 放行注册和登录接口
+        if (path.equals("/api/accounts") || path.equals("/api/accounts/login")) {
+//            logger.debug("[JwtAuthFilter] 放行路径: {}", path);
+            filterChain.doFilter(request, response);
+            return;
+        }
         String token = request.getHeader("token");
-        if (token != null) {
-            try {
-                String username = jwtUtils.validateToken(token);
-                SecurityContextHolder.getContext().setAuthentication(
-                        new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>())
-                );
-            } catch (Exception e) {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token无效");
-                return;
-            }
+//        logger.debug("[JwtAuthFilter] 接收到的Token: {}", token);
+        if (token == null) {
+//            logger.error("[JwtAuthFilter] Token为空");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "缺少 Token");
+            return; // 关键：发送错误后立即返回
+        }
+        try {
+            String username = jwtUtils.validateToken(token);
+//            logger.debug("[JwtAuthFilter] Token验证成功，用户: {}", username);
+            SecurityContextHolder.getContext().setAuthentication(
+                    new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>())
+            );
+        } catch (Exception e) {
+//            logger.error("[JwtAuthFilter] Token验证失败: {}", e.getMessage());
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token无效");
+            return; // 关键：发送错误后立即返回
         }
         filterChain.doFilter(request, response);
     }

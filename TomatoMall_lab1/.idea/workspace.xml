@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0db71a43-ba70-4009-8c3f-6553885dd4b8" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/.idea/Lab1-示例项目启动.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/components.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/components.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/src/api/_prefix.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/src/api/_prefix.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/src/router/index.ts" afterDir="false" />
@@ -15,6 +16,30 @@
       <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale/src/main/java/com/seecoder/BlueWhale/configure/MyWebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale/src/main/java/com/seecoder/BlueWhale/configure/MyWebMvcConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale/src/main/java/com/seecoder/BlueWhale/exception/BlueWhaleException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale/src/main/java/com/seecoder/BlueWhale/exception/BlueWhaleException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/TomatoMall.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/8b7b6089-5ff0-4289-bdf4-fe920bec8f5e.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/8b7b6089-5ff0-4289-bdf4-fe920bec8f5e/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/8b7b6089-5ff0-4289-bdf4-fe920bec8f5e/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/8b7b6089-5ff0-4289-bdf4-fe920bec8f5e/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/8b7b6089-5ff0-4289-bdf4-fe920bec8f5e/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/8b7b6089-5ff0-4289-bdf4-fe920bec8f5e/storage_v2/_src_/schema/tomatomall.HlFRDQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tomatomall-frontend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../tomatomall-frontend/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tomatomall-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../tomatomall-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tomatomall-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../tomatomall-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tomatomall-frontend/src/components/NavigationBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../tomatomall-frontend/src/components/NavigationBar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tomatomall-frontend/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../tomatomall-frontend/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tomatomall-frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../tomatomall-frontend/src/router/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,27 +47,58 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2ur4kpkASsLIe3uCe8psUNJ8Etp" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Codes/SEⅡ/代码Lab1/TomatoMall_lab1",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;frontend&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Codes/SEⅡ/代码Lab1/TomatoMall_lab1&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDK&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+    &quot;应用程序.TomatoMallApplication.executor&quot;: &quot;Run&quot;
   }
-}]]></component>
+}</component>
+  <component name="RunManager">
+    <configuration name="TomatoMallApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.tomatomall.TomatoMallApplication" />
+      <module name="TomatoMall" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.tomatomall.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="应用程序.TomatoMallApplication" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -60,6 +116,11 @@
       <option name="presentableId" value="Default" />
       <updated>1742993504938</updated>
       <workItem from="1742993506049" duration="14000" />
+      <workItem from="1743229446897" duration="531000" />
+      <workItem from="1743230078887" duration="1964000" />
+      <workItem from="1743232167274" duration="1005000" />
+      <workItem from="1743315508489" duration="4514000" />
+      <workItem from="1743321149860" duration="4191000" />
     </task>
     <servers />
   </component>
