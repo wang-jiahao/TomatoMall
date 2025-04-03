@@ -51,8 +51,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/accounts").permitAll()  // 允许注册
                 .antMatchers(HttpMethod.POST, "/api/accounts/login").permitAll() // 明确允许登录
-                .antMatchers(HttpMethod.GET, "/api/accounts/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/api/accounts").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/accounts/**").authenticated()
+                .antMatchers(HttpMethod.PUT, "/api/accounts").authenticated()
+
+                // 允许匿名访问商品列表和详情
+                .antMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+                // 管理员权限控制
+                .antMatchers(HttpMethod.POST, "/api/products").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/products").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/products/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

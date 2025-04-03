@@ -5,24 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0db71a43-ba70-4009-8c3f-6553885dd4b8" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/.idea/Lab1-示例项目启动.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/components.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/components.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/src/api/_prefix.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/src/api/_prefix.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/src/router/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/src/views/user/Dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/src/views/user/Dashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/src/views/user/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/src/views/user/Login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/src/views/user/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale-frontend/src/views/user/Register.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale/src/main/java/com/seecoder/BlueWhale/configure/MyWebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale/src/main/java/com/seecoder/BlueWhale/configure/MyWebMvcConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale/src/main/java/com/seecoder/BlueWhale/exception/BlueWhaleException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale/src/main/java/com/seecoder/BlueWhale/exception/BlueWhaleException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab1-示例项目启动/bluewhale/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/controller/ProductController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/po/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/po/Specification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/po/Stockpile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/repository/ProductRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/repository/StockpileRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/service/ProductService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/serviceImpl/ProductServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/vo/ProductVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/vo/SpecificationVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/config/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/config/JwtAuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/util/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/util/JwtUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -40,7 +50,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "frontend",
+    "git-widget-placeholder": "v21n-products",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/TomatoMall/TomatoMall_lab1",
@@ -85,8 +95,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
       </set>
     </attachedChunks>
   </component>
@@ -106,10 +116,23 @@
       <workItem from="1743321149860" duration="4191000" />
       <workItem from="1743328367370" duration="3116000" />
       <workItem from="1743332988218" duration="549000" />
+      <workItem from="1743334988616" duration="356000" />
+      <workItem from="1743654701468" duration="4928000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
