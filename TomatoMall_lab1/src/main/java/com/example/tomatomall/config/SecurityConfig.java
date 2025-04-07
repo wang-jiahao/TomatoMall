@@ -57,9 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 允许匿名访问商品列表和详情
                 .antMatchers(HttpMethod.GET, "/api/products/**").permitAll()
                 // 管理员权限控制
-                .antMatchers(HttpMethod.POST, "/api/products").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/products").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/products/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/products").hasAuthority("admin")
+                .antMatchers(HttpMethod.PUT, "/api/products").hasAuthority("admin")
+                .antMatchers(HttpMethod.DELETE, "/api/products/**").hasAuthority("admin")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

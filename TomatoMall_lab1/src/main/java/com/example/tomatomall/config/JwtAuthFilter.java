@@ -50,7 +50,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             String username = jwtUtils.validateToken(token);
             Claims claims = jwtUtils.parseTokenClaims(token); // 需要新增解析方法
 
-            String role = "ROLE_" + claims.get("role", String.class);
+            String role = claims.get("role", String.class);
             List<SimpleGrantedAuthority> authorities = Collections.singletonList(
                     new SimpleGrantedAuthority(role)
             );

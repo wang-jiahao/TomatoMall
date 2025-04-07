@@ -33,7 +33,7 @@ public class JwtUtils {
         String secretKey = Base64.getEncoder().encodeToString(user.getPassword().getBytes());
         return Jwts.builder()
                 .setSubject(username)
-                .claim("role", user.getRole()) // 关键：添加ROLE_前缀
+                .claim("role", user.getRole())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
