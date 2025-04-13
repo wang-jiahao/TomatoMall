@@ -26,6 +26,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(UserVO userVO) {
+//        // 默认角色为 "user"
+//        User.setRole("user");
+//        // 如果是管理员注册（例如用户名为 "admin"）
+//        if ("admin".equals(userVO.getUsername())) {
+//            User.setRole("admin");
+//        }
+
         // 校验用户名唯一性
         if (userRepository.findByUsername(userVO.getUsername()).isPresent()) {
             throw new RuntimeException("用户名已存在");
