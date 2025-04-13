@@ -1,6 +1,7 @@
 package com.example.tomatomall.controller;
 
 import com.example.tomatomall.po.Product;
+import com.example.tomatomall.po.Stockpile;
 import com.example.tomatomall.service.ProductService;
 import com.example.tomatomall.vo.ProductVO;
 import com.example.tomatomall.vo.Response;
@@ -10,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/products")
@@ -31,23 +33,41 @@ public class ProductController {
 
     // 新增商品（仅管理员）
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<Response<Product>> createProduct(@RequestBody ProductVO productVO) {
         return ResponseEntity.ok(Response.buildSuccess(productService.createProduct(productVO)));
     }
 
     // 更新商品（仅管理员）
     @PutMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<Response<Product>> updateProduct(@RequestBody ProductVO productVO) {
         return ResponseEntity.ok(Response.buildSuccess(productService.updateProduct(productVO.getId(), productVO)));
     }
 
     // 删除商品（仅管理员）
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<Response<String>> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.ok(Response.buildSuccess("删除成功"));
+    }
+
+    // 调整商品库存（管理员权限）
+    @PatchMapping("/stockpile/{productId}")
+    @PreAuthorize("hasAuthority('admin')")
+    public ResponseEntity<Response<String>> updateStockpile(
+            @PathVariable Long productId,
+            @RequestBody Map<String, Integer> request) {
+        Integer amount = request.get("amount");
+        productService.updateStockpile(productId, amount);
+        return ResponseEntity.ok(Response.buildSuccess("调整库存成功"));
+    }
+
+    @GetMapping("/stockpile/{productId}")
+    public ResponseEntity<Response<Stockpile>> getStockpile(
+            @PathVariable Long productId) {
+        Stockpile stockpile = productService.getStockpile(productId);
+        return ResponseEntity.ok(Response.buildSuccess(stockpile));
     }
 }

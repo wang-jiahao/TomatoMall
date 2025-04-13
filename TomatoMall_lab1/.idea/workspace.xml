@@ -5,11 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0db71a43-ba70-4009-8c3f-6553885dd4b8" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TomatoMall.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c7d7133e-4d3d-4272-b999-62f1a7827a74.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c7d7133e-4d3d-4272-b999-62f1a7827a74.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/config/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/config/JwtAuthFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/serviceImpl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/serviceImpl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/util/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/util/JwtUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/po/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/po/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/po/Specification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/po/Specification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/po/Stockpile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/po/Stockpile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/repository/StockpileRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/repository/StockpileRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/serviceImpl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/serviceImpl/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/tomatomall/config/JwtAuthFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/tomatomall/config/JwtAuthFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/tomatomall/controller/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/tomatomall/controller/ProductController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/tomatomall/exception/GlobalExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/tomatomall/exception/GlobalExceptionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/tomatomall/po/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/tomatomall/po/Product.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/tomatomall/po/Specification.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/tomatomall/po/Specification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/tomatomall/po/Stockpile.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/tomatomall/po/Stockpile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/tomatomall/repository/StockpileRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/tomatomall/repository/StockpileRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/tomatomall/service/ProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/tomatomall/service/ProductService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/tomatomall/serviceImpl/ProductServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/tomatomall/serviceImpl/ProductServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,10 +69,10 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;项目&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
     &quot;应用程序.TomatoMallApplication.executor&quot;: &quot;Run&quot;
   },
@@ -111,7 +131,14 @@
       <workItem from="1743660905219" duration="1028000" />
       <workItem from="1744012933238" duration="160000" />
       <workItem from="1744014352616" duration="166000" />
-      <workItem from="1744016497032" duration="2690000" />
+      <workItem from="1744016497032" duration="3255000" />
+      <workItem from="1744462831693" duration="5720000" />
+      <workItem from="1744470520848" duration="401000" />
+      <workItem from="1744476171790" duration="1985000" />
+      <workItem from="1744479597074" duration="13767000" />
+      <workItem from="1744520228052" duration="2038000" />
+      <workItem from="1744522613614" duration="406000" />
+      <workItem from="1744524070334" duration="532000" />
     </task>
     <servers />
   </component>
@@ -128,5 +155,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

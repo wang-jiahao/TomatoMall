@@ -30,38 +30,35 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
-        String path = request.getRequestURI();
-//        logger.debug("[JwtAuthFilter] 请求路径: {}", path);
-
-        // 放行注册和登录接口
-        if (path.equals("/api/accounts") || path.equals("/api/accounts/login")) {
-//            logger.debug("[JwtAuthFilter] 放行路径: {}", path);
-            filterChain.doFilter(request, response);
-            return;
-        }
+//        String path = request.getRequestURI();
+////        logger.debug("[JwtAuthFilter] 请求路径: {}", path);
+//
+//        // 放行注册和登录接口
+//        if (path.equals("/api/accounts") || path.equals("/api/accounts/login")) {
+////            logger.debug("[JwtAuthFilter] 放行路径: {}", path);
+//            filterChain.doFilter(request, response);
+//            return;
+//        }
         String token = request.getHeader("token");
 //        logger.debug("[JwtAuthFilter] 接收到的Token: {}", token);
-        if (token == null) {
-//            logger.error("[JwtAuthFilter] Token为空");
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "缺少 Token");
-            return; // 关键：发送错误后立即返回
+        if (token != null && !token.isEmpty()) {
+            try {
+                String username = jwtUtils.validateToken(token);
+                Claims claims = jwtUtils.parseTokenClaims(token);
+                String role = claims.get("role", String.class);
+                List<SimpleGrantedAuthority> authorities = Collections.singletonList(
+                        new SimpleGrantedAuthority(role)
+                );
+                SecurityContextHolder.getContext().setAuthentication(
+                        new UsernamePasswordAuthenticationToken(username, null, authorities)
+                );
+            } catch (Exception e) {
+                // Token无效时直接返回401错误
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token无效");
+                return;
+            }
         }
-        try {
-            String username = jwtUtils.validateToken(token);
-            Claims claims = jwtUtils.parseTokenClaims(token); // 需要新增解析方法
-
-            String role = claims.get("role", String.class);
-            List<SimpleGrantedAuthority> authorities = Collections.singletonList(
-                    new SimpleGrantedAuthority(role)
-            );
-            SecurityContextHolder.getContext().setAuthentication(
-                    new UsernamePasswordAuthenticationToken(username, null, authorities)
-            );
-        } catch (Exception e) {
-//            logger.error("[JwtAuthFilter] Token验证失败: {}", e.getMessage());
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token无效");
-            return; // 关键：发送错误后立即返回
-        }
+        // 无论是否有Token，都继续执行后续过滤器链
         filterChain.doFilter(request, response);
     }
 }
