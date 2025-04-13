@@ -5,6 +5,7 @@ import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,7 +31,25 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
-//        String path = request.getRequestURI();
+        // 新增：放行 OPTIONS 请求
+        if (HttpMethod.OPTIONS.matches(request.getMethod())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        /*String path = request.getRequestURI();
+        String method = request.getMethod();
+        // 放行 OPTIONS 请求
+        if (HttpMethod.OPTIONS.matches(method)) {
+            filterChain.doFilter(request, response);
+            return;
+        }*/
+
+        /*// 放行注册和登录接口
+        if (path.equals("/api/accounts") && HttpMethod.POST.matches(method) ||
+                path.equals("/api/accounts/login") && HttpMethod.POST.matches(method)) {
+            filterChain.doFilter(request, response);
+            return;
+        }*/
 ////        logger.debug("[JwtAuthFilter] 请求路径: {}", path);
 //
 //        // 放行注册和登录接口

@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const isLoggedIn = computed(() => !!localStorage.getItem('token'))
+const role = computed(() => localStorage.getItem('role'))
 
 const handleLogout = () => {
   localStorage.removeItem('token')
@@ -21,7 +22,7 @@ const handleLogout = () => {
     >
       <el-menu-item index="/">番茄书城</el-menu-item>
       <el-menu-item index="/cart">购物车</el-menu-item>
-      <el-menu-item index="/warehouse">库存管理</el-menu-item>
+      <el-menu-item index="/warehouse">商品库存</el-menu-item>
 
       <div class="auth-buttons">
         <el-menu-item v-if="!isLoggedIn" index="/login">登录</el-menu-item>

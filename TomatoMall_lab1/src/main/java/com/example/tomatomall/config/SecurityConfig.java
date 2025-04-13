@@ -33,8 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:5174")); // 前端开发服务器地址
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        config.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // 前端开发服务器地址
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(Arrays.asList("*"));
         config.setAllowCredentials(true);
 
@@ -46,17 +46,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .cors().configurationSource(corsConfigurationSource())//启用CORS配置
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll() // 允许所有OPTIONS请求
+                .antMatchers(HttpMethod.PATCH,"/api/products/stockpile/**").hasAuthority("admin")
+                .antMatchers(HttpMethod.GET,"/api/products/stockpile/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/products/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/accounts").permitAll()  // 允许注册
                 .antMatchers(HttpMethod.POST, "/api/accounts/login").permitAll() // 明确允许登录
                 .antMatchers(HttpMethod.GET, "/api/accounts/**").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/accounts").authenticated()
 
                 // 允许匿名访问商品列表和详情
-                .antMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+
                 // 管理员权限控制
+
                 .antMatchers(HttpMethod.POST, "/api/products").hasAuthority("admin")
                 .antMatchers(HttpMethod.PUT, "/api/products").hasAuthority("admin")
                 .antMatchers(HttpMethod.DELETE, "/api/products/**").hasAuthority("admin")
