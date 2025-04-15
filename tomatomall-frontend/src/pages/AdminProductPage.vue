@@ -44,9 +44,8 @@ const handleDelete = (id) => {
   ElMessageBox.confirm('确认删除该商品？', '警告', { type: 'warning' })
       .then(async () => {
         await axios.delete(`/api/products/${id}`)
-        await axios.delete(`/api/products/stockpile/${id}`)
         ElMessage.success('删除成功')
-        loadProducts()
+        await loadProducts()
       })
       .catch(() => {})
 }

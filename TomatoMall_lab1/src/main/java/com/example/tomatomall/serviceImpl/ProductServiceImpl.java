@@ -119,6 +119,9 @@ public class ProductServiceImpl implements ProductService {
         if (!productRepository.existsById(id)) {
             throw new RuntimeException("商品不存在");
         }
+        //先删除库存
+        stockpileRepository.deleteById(id);
+        //再删除商品
         productRepository.deleteById(id);
     }
 
