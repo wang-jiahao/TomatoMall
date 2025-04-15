@@ -12,8 +12,10 @@ service.interceptors.request.use(config => {
     if (token) {
         config.headers['token'] = token
     }
-    return config
-})
+    return config;
+},error => {
+    return Promise.reject(error);
+});
 
 // 响应拦截器
 service.interceptors.response.use(

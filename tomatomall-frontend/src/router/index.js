@@ -5,6 +5,8 @@ import WarehousePage from "../pages/WarehousePage.vue";
 import LoginPage from '../pages/LoginPage.vue'
 import RegisterPage from '../pages/RegisterPage.vue'
 import ProfilePage from '../pages/ProfilePage.vue'
+import ProductDetailPage from '../pages/ProductDetailPage.vue'
+import AdminProductPage from '../pages/AdminProductPage.vue'
 
 const routes = [
     {
@@ -37,6 +39,17 @@ const routes = [
         name: 'profile',
         component: ProfilePage,
         meta: { requiresAuth: true }
+    },
+    {
+        path: '/product/:id',
+        name: 'product-detail',
+        component: ProductDetailPage
+    },
+    {
+        path: '/admin/products',
+        name: 'admin-products',
+        component: AdminProductPage,
+        meta: { requiresAuth: true, requiresAdmin: true }
     }
     //其他路由配置
 ];
@@ -49,3 +62,12 @@ const router = createRouter({
 
 
 export default router;
+
+/*router.beforeEach((to, from, next) => {
+    const role = localStorage.getItem('role')
+    if (to.meta.requiresAdmin && role !== 'admin') {
+        next('/login')
+    } else {
+        next()
+    }
+})*/

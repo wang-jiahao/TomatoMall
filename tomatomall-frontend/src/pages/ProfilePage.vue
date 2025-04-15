@@ -28,6 +28,7 @@ onMounted(() => {
   })
       .then(response => {
         userInfo.value = response.data.data;
+        localStorage.setItem('role', response.data.data.role); // 将角色存储到 localStorage
       })
       .catch(error => {
         if (error.response?.status === 403) {

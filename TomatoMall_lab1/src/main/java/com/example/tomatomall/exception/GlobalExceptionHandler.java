@@ -28,4 +28,21 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Response.buildFailure("服务器内部错误", "500"));
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Response<?>> handleBusinessException(RuntimeException e) {
+        // 根据异常消息返回不同状态码（如商品不存在返回400）
+        if (e.getMessage().contains("商品不存在")) {
+            return ResponseEntity.badRequest()
+                    .body(Response.buildFailure(e.getMessage(), "400"));
+        }
+        // 库存记录不存在 → 400
+        else if (e.getMessage().contains("库存记录不存在")) {
+            return ResponseEntity.badRequest()
+                    .body(Response.buildFailure(e.getMessage(), "400"));
+        }
+        // 其他未处理的异常返回500
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Response.buildFailure("服务器内部错误", "500"));
+    }
 }

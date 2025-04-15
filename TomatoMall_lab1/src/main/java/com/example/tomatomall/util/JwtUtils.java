@@ -33,6 +33,7 @@ public class JwtUtils {
         String secretKey = Base64.getEncoder().encodeToString(user.getPassword().getBytes());
         return Jwts.builder()
                 .setSubject(username)
+                .claim("role", user.getRole())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
@@ -68,6 +69,23 @@ public class JwtUtils {
         } catch (Exception e) {
 //            logger.error("[JwtUtils] Token验证异常: {}", e.getMessage());
             throw new RuntimeException("Token 无效或已过期: " + e.getMessage());
+        }
+    }
+
+    // 解析Token中的Claims用于获取角色
+    public Claims parseTokenClaims(String token) {
+        try {
+            String username = validateToken(token); // 先验证Token有效性
+            User user = userRepository.findByUsername(username)
+                    .orElseThrow(() -> new RuntimeException("用户不存在"));
+
+            String secretKey = Base64.getEncoder().encodeToString(user.getPassword().getBytes());
+            return Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e) {
+            throw new RuntimeException("Token解析失败");
         }
     }
 }
