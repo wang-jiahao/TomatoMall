@@ -1,12 +1,15 @@
 package com.example.tomatomall.util;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import com.example.tomatomall.po.User;
 import com.example.tomatomall.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.security.SignatureException;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Base64;
@@ -66,9 +69,10 @@ public class JwtUtils {
                     .getBody();
 //            System.out.println("[Debug] SecretKey for validation: " + secretKey);
             return claims.getSubject();
+        } catch (ExpiredJwtException e) {
+            throw new RuntimeException("Token已过期");
         } catch (Exception e) {
-//            logger.error("[JwtUtils] Token验证异常: {}", e.getMessage());
-            throw new RuntimeException("Token 无效或已过期: " + e.getMessage());
+            throw new RuntimeException("Token解析失败");
         }
     }
 
