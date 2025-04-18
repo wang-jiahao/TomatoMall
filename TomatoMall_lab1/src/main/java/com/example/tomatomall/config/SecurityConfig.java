@@ -67,6 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/products").hasAuthority("admin")
                 .antMatchers(HttpMethod.PUT, "/api/products").hasAuthority("admin")
                 .antMatchers(HttpMethod.DELETE, "/api/products/**").hasAuthority("admin")
+
+                .antMatchers(HttpMethod.POST, "/api/cart").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/cart/**").authenticated()
+                .antMatchers(HttpMethod.PATCH, "/api/cart/**").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/cart").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
