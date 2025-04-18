@@ -51,11 +51,12 @@ public class CartServiceImpl implements CartService {
 
         // 校验库存
         Stockpile stockpile = productService.getStockpile(productId);
+        int available = stockpile.getAmount() - stockpile.getFrozen();
         if (stockpile == null) {
             throw new RuntimeException("商品库存信息不存在，productId: " + productId);
         }
-        if (stockpile.getAmount() < quantity) {
-            throw new RuntimeException("商品库存不足，当前库存: " + stockpile.getAmount());
+        if (available < quantity) {
+            throw new RuntimeException("商品库存不足，当前库存: " + available);
         }
 
         // 查找或创建购物车项
@@ -83,7 +84,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public void removeCartItem(Long cartItemId) {
         CartItem item = cartItemRepository.findById(cartItemId)
-                .orElseThrow(() -> new RuntimeException("购物车项不存在"));
+                .orElseThrow(() -> new RuntimeException("购物车商品不存在"));
         cartItemRepository.delete(item);
     }
 
@@ -91,12 +92,13 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public void updateQuantity(Long cartItemId, Integer quantity) {
         CartItem item = cartItemRepository.findById(cartItemId)
-                .orElseThrow(() -> new RuntimeException("购物车项不存在"));
+                .orElseThrow(() -> new RuntimeException("购物车商品不存在"));
 
         // 校验库存
         Stockpile stockpile = productService.getStockpile(item.getProduct().getId());
-        if (stockpile.getAmount() < quantity) {
-            throw new RuntimeException("库存不足，当前可用数量：" + stockpile.getAmount());
+        int available = stockpile.getAmount() - stockpile.getFrozen();
+        if (available < quantity) {
+            throw new RuntimeException("商品库存不足，当前可用数量：" + available);
         }
 
         item.setQuantity(quantity);

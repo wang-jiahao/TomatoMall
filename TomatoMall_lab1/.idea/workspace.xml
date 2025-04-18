@@ -5,29 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0db71a43-ba70-4009-8c3f-6553885dd4b8" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/controller/CartController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/po/Cart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/po/CartItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/po/Order.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/po/OrderItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/repository/CartItemRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/repository/CartRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/repository/OrderRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/service/CartService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/serviceImpl/CartServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/vo/CartItemVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/vo/CartRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/vo/CartVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c7d7133e-4d3d-4272-b999-62f1a7827a74.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c7d7133e-4d3d-4272-b999-62f1a7827a74.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/config/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/config/JwtAuthFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/util/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/util/JwtUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/tomatomall/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/tomatomall/config/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/tomatomall/util/JwtUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/tomatomall/util/JwtUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/serviceImpl/CartServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tomatomall/serviceImpl/CartServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/tomatomall/exception/GlobalExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/tomatomall/exception/GlobalExceptionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/tomatomall/serviceImpl/CartServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/tomatomall/serviceImpl/CartServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +125,7 @@
       <workItem from="1744533826332" duration="6683000" />
       <workItem from="1744542635442" duration="1717000" />
       <workItem from="1744721397549" duration="2635000" />
-      <workItem from="1744951426841" duration="8533000" />
+      <workItem from="1744951426841" duration="10389000" />
     </task>
     <servers />
   </component>
