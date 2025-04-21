@@ -7,6 +7,15 @@ import { ElMessage } from 'element-plus'
 const product = ref({})
 const route = useRoute()
 
+const addToCart = async (productId) => {
+  try {
+    await axios.post('/api/cart', { productId, quantity: 1 })
+    ElMessage.success('已加入购物车')
+  } catch (error) {
+    ElMessage.error('操作失败')
+  }
+}
+
 onMounted(async () => {
   try {
     const res = await axios.get(`/api/products/${route.params.id}`)
@@ -30,7 +39,10 @@ onMounted(async () => {
       </div>
       <p class="description">{{ product.description }}</p>
       <div class="detail" v-html="product.detail"></div>
-
+      <el-button
+          type="primary"
+          @click="addToCart(product.id)"
+      >加入购物车</el-button>
       <el-divider />
       <h3>商品规格</h3>
       <el-table :data="product.specifications" border>
