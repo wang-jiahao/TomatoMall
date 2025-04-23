@@ -60,6 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/accounts/**").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/accounts").authenticated()
 
+                .antMatchers(HttpMethod.POST, "/api/cart/checkout").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/orders/*/pay").authenticated()
                 // 允许匿名访问商品列表和详情
 
                 // 管理员权限控制
@@ -74,7 +76,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/cart").authenticated()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+        ;
     }
 
     @Bean

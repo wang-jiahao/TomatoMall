@@ -52,10 +52,11 @@ git pull origin dev      # 拉取远程最新dev代码
 ---
 
 ### **四、常用命令速查**
-| 场景             | 命令                         |
-| ---------------- | ---------------------------- |
-| 查看状态         | `git status`                 |
-| 查看提交历史     | `git log --oneline`          |
-| 撤销未提交的修改 | `git checkout -- 文件名`     |
-| 回退到某次提交   | `git reset --hard commit-id` |
-| 暂存临时修改     | `git stash`                  |
+| 场景                            | 命令                                                         |
+| ------------------------------- | ------------------------------------------------------------ |
+| 查看状态                        | `git status`                                                 |
+| 查看提交历史                    | `git log --oneline`                                          |
+| 撤销未提交的修改                | `git checkout -- 文件名`                                     |
+| 回退到某次提交                  | `git reset --hard commit-id`                                 |
+| 暂存临时修改                    | `git stash`                                                  |
+| 创建标签（用于github的release） | `git tag -a v1.0.0 -m "latest version"`                                              `git push origin v1.0.0` |
