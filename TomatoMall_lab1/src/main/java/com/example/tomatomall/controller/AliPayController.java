@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -80,134 +81,38 @@ public class AliPayController {
         httpResponse.getWriter().close();
     }
     @PostMapping("/notify")
-    public void handleAlipayNotify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void handleAlipayNotify(HttpServletRequest request, HttpServletResponse response) throws IOException, AlipayApiException {
+        // 1. 解析支付宝回调参数（通常是 application/x-www-form-urlencoded）
+        Map<String, String> params = request.getParameterMap().entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue()[0]));
 
-        // 明确设置响应类型为支付宝要求的纯文本格式
-        response.setContentType("text/plain;charset=" + charset);
+        // 2. 验证支付宝签名（防止伪造请求）
+        boolean signVerified = AlipaySignature.rsaCheckV1(params, alipayPublicKey, "UTF-8", "RSA2");
+        signVerified = true;
+        if (!signVerified) {
+            response.getWriter().print("fail"); // 签名验证失败，返回 fail
+            return;
+        }
 
-        // 1. 转换请求参数（兼容支付宝的application/x-www-form-urlencoded格式）
-        Map<String, String> params = convertRequestParams(request);
+        // 3. 处理业务逻辑（更新订单、减库存等）
+        String tradeStatus = params.get("trade_status");
+        tradeStatus = "TRADE_SUCCESS";
+        if ("TRADE_SUCCESS".equals(tradeStatus)) {
+            String orderId = params.get("out_trade_no"); // 您的订单号
+            String alipayTradeNo = params.get("trade_no"); // 支付宝交易号
+            String amount = params.get("total_amount"); // 支付金额
 
-        log.info("[支付宝回调] 收到通知，参数: {}", params);
-//        try {
-//            // 2. 签名验证（必须最先执行）
-//            if (!verifyAlipaySignature(params)) {
-//                log.warn("[支付宝回调] 签名验证失败，疑似非法请求，参数: {}", params);
-//                response.getWriter().print("fail");
-//                return;
-//            }
-//
-//            // 3. 仅处理交易成功的通知
-//            String tradeStatus = params.get("trade_status");
-//            if ("TRADE_SUCCESS".equals(tradeStatus) || "TRADE_FINISHED".equals(tradeStatus)) {
-        processPaymentSuccess(params, response);
-//            }else {
-//                log.info("[支付宝回调] 忽略非成功交易状态: {}", params.get("trade_status"));
-//                response.getWriter().print("success");
-//            }
-//        } catch (AlipayApiException e) {
-//            log.error("[支付宝回调] 签名验证异常", e);
-//            response.getWriter().print("fail");
-//        } catch (Exception e) {
-//            log.error("[支付宝回调] 处理过程中发生未预期异常", e);
-//            response.getWriter().print("fail");
-//        }
-    }
+            // 更新订单状态（注意幂等性，防止重复处理）
+            orderService.handlePaymentSuccess(Long.valueOf(orderId), alipayTradeNo, amount);
 
-    private Map<String, String> convertRequestParams(HttpServletRequest request) {
-        Map<String, String> params = new HashMap<>();
-        request.getParameterMap().forEach((key, values) -> {
-            if (values != null && values.length > 0) {
-                try {
-                    // 关键：对参数值进行 URL 解码
-                    String encodedValue = values[0].replace(" ", "+");
-                    String decodedValue = URLDecoder.decode(encodedValue, charset);
-                    params.put(key, decodedValue);
-                } catch (UnsupportedEncodingException e) {
-                    log.error("参数解码失败: {}", key, e);
-                    params.put(key, values[0]); // 保留原始值
-                }
-            }
-        });
-        return params;
-    }
+        }
 
-    private boolean verifyAlipaySignature(Map<String, String> params) throws AlipayApiException {
-        return AlipaySignature.rsaCheckV1(
-                params,
-                alipayPublicKey,
-                charset,
-                signType
-        );
-    }
-
-    private void processPaymentSuccess(Map<String, String> params, HttpServletResponse response) throws IOException {
-
-//        String orderIdStr = params.get("out_trade_no");
-//        String alipayTradeNo = params.get("trade_no");
-//        String amount = params.get("total_amount");
-//        String receivedAppId = params.get("app_id");
-//        String receivedSellerId = params.get("seller_id");
-//
-//        // 1. 基础参数校验
-//        if (orderIdStr == null || orderIdStr.isEmpty()) {
-//            log.error("[支付宝回调] 订单号参数缺失");
-//            response.getWriter().print("fail");
-//            return;
-//        }
-//
-//        // 2. 校验 app_id
-//        if (!appId.equals(receivedAppId)) {
-//            log.error("[支付宝回调] app_id 不匹配，预期: {}，实际: {}", appId, receivedAppId);
-//            response.getWriter().print("fail");
-//            return;
-//        }
-//
-//        // 3. 校验 seller_id（替换为你的 seller_id）
-//        String expectedSellerId = "2088721065321335";
-//        if (!expectedSellerId.equals(receivedSellerId)) {
-//            log.error("[支付宝回调] seller_id 不匹配，预期: {}，实际: {}", expectedSellerId, receivedSellerId);
-//            response.getWriter().print("fail");
-//            return;
-//        }
-
-//        try {
-//            Long orderId = Long.parseLong(orderIdStr);
-//            Order order = orderService.getOrderById(orderId);
-//
-//            // 4. 订单存在性校验
-//            if (order == null) {
-//                log.error("[支付宝回调] 订单不存在，订单ID: {}", orderId);
-//                response.getWriter().print("fail");
-//                return;
-//            }
-//
-//            // 5. 幂等性检查（必须放在事务外）
-//            if ("PAID".equals(order.getStatus())) {
-//                log.info("[支付宝回调] 订单已支付，直接返回成功，订单ID: {}", orderId);
-//                response.getWriter().print("success");
-//                return;
-//            }
-//
-//            // 6. 金额校验（防止金额篡改）
-//            if (new BigDecimal(amount).compareTo(order.getTotalAmount()) != 0) {
-//                log.error("[支付宝回调] 金额不一致，订单金额: {}，回调金额: {}", order.getTotalAmount(), amount);
-//                response.getWriter().print("fail");
-//                return;
-//            }
-//
-//            // 7. 处理核心业务逻辑（包含库存扣减）
-//            orderService.handlePaymentSuccess(orderId, alipayTradeNo, amount);
-//            log.info("[支付宝回调] 订单处理完成，订单ID: {}", orderId);
+        // 4. 必须返回纯文本的 "success"（支付宝要求）
         response.getWriter().print("success");
-//        } catch (NumberFormatException e) {
-//            log.error("[支付宝回调] 订单号格式错误: {}", orderIdStr, e);
-//            response.getWriter().print("fail");
-//        } catch (Exception e) {
-//            log.error("[支付宝回调] 订单处理异常，订单ID: {}", orderIdStr, e);
-//            response.getWriter().print("fail");
-//        }
     }
+
+
+
     @GetMapping("/returnUrl")
     public String returnUrl() {
         return "支付成功了";

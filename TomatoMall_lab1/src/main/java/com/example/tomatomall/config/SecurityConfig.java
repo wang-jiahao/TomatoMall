@@ -46,11 +46,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
+
                 .cors().configurationSource(corsConfigurationSource())//启用CORS配置
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/api/orders/notify", "/api/orders/returnUrl").permitAll() // 放行回调接口
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll() // 允许所有OPTIONS请求
                 .antMatchers(HttpMethod.PATCH,"/api/products/stockpile/**").hasAuthority("admin")
                 .antMatchers(HttpMethod.GET,"/api/products/stockpile/**").permitAll()
