@@ -26,5 +26,5 @@ alipay:
   server-url: https://openapi-sandbox.dl.alipaydev.com/gateway.do
   charset: utf-8
   sign-type: RSA2
-  notify-url: http://extj3s.natappfree.cc/alipay/notify
-  return-url: http://extj3s.natappfree.cc/alipay/returnUrl
+  notify-url: http://39762v.natappfree.cc/api/orders/notify
+  return-url: http://39762v.natappfree.cc/api/orders/returnUrl
