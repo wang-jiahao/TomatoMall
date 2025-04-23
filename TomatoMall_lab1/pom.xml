@@ -52,6 +52,13 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <!-- 支付宝支付依赖 -->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>4.31.56.ALL</version>
+        </dependency>
+
         <!-- JWT 令牌生成 -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

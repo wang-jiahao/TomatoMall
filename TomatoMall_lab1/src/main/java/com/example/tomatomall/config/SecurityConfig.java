@@ -46,11 +46,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
+
                 .cors().configurationSource(corsConfigurationSource())//启用CORS配置
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/api/orders/notify", "/api/orders/returnUrl").permitAll() // 放行回调接口
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll() // 允许所有OPTIONS请求
                 .antMatchers(HttpMethod.PATCH,"/api/products/stockpile/**").hasAuthority("admin")
                 .antMatchers(HttpMethod.GET,"/api/products/stockpile/**").permitAll()
@@ -60,6 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/accounts/**").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/accounts").authenticated()
 
+                .antMatchers(HttpMethod.POST, "/api/cart/checkout").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/orders/*/pay").authenticated()
                 // 允许匿名访问商品列表和详情
 
                 // 管理员权限控制
@@ -74,7 +78,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/cart").authenticated()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+        ;
     }
 
     @Bean

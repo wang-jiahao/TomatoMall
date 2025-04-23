@@ -50,6 +50,18 @@ const routes = [
         name: 'admin-products',
         component: AdminProductPage,
         meta: { requiresAuth: true, requiresAdmin: true }
+    },
+    {
+        path: '/checkout',
+        name: 'checkout',
+        component: () => import('../pages/CheckoutPage.vue'),
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/payment/:orderId',
+        name: 'payment',
+        component: () => import('../pages/PaymentPage.vue'),
+        meta: { requiresAuth: true }
     }
     //其他路由配置
 ];
