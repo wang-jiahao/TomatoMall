@@ -49,6 +49,10 @@ public class GlobalExceptionHandler {
             return ResponseEntity.badRequest()
                     .body(Response.buildFailure(e.getMessage(), "400"));
         }
+        else if (e.getMessage().startsWith("广告不存在")) {
+            return ResponseEntity.badRequest()
+                    .body(Response.buildFailure(e.getMessage(), "400"));
+        }
         // 其他未处理的异常返回500
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Response.buildFailure("服务器内部错误", "500"));
