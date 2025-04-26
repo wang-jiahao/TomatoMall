@@ -62,6 +62,17 @@ const routes = [
         name: 'payment',
         component: () => import('../pages/PaymentPage.vue'),
         meta: { requiresAuth: true }
+    },
+    {
+        path: '/advertisements',
+        name: 'advertisements',
+        component: () => import('../pages/AdvertisementsPage.vue')
+    },
+    {
+        path: '/admin/advertisements',
+        name: 'admin-advertisements',
+        component: () => import('../pages/AdminAdvertisementsPage.vue'),
+        meta: { requiresAuth: true, requiresAdmin: true }
     }
     //其他路由配置
 ];

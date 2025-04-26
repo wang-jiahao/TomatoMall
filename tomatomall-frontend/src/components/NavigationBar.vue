@@ -23,6 +23,8 @@ const handleLogout = () => {
       <el-menu-item index="/">番茄书城</el-menu-item>
       <el-menu-item index="/cart">购物车</el-menu-item>
       <el-menu-item index="/warehouse">商品库存</el-menu-item>
+      <el-menu-item v-if="role === 'admin'" index="/admin/advertisements">广告管理</el-menu-item>
+      <el-menu-item index="/advertisements">广告列表</el-menu-item>
 
       <div class="auth-buttons">
         <el-menu-item v-if="!isLoggedIn" index="/login">登录</el-menu-item>
