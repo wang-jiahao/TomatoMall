@@ -8,11 +8,13 @@ const form = ref({
   username: '',
   password: ''
 })
+const isSubmitting = ref(false)
 
 const router = useRouter()
 
 const handleLogin = async () => {
   try {
+    isSubmitting.value = true
     const res = await axios.post('/api/accounts/login', form.value);
     const token = res.data.data;
 
@@ -24,24 +26,39 @@ const handleLogin = async () => {
     router.push('/profile');
   } catch (error) {
     ElMessage.error(error.response?.data?.msg || '登录失败');
+  } finally {
+    isSubmitting.value = false
   }
 };
 </script>
 
 <template>
-  <div class="login-container">
-    <el-card class="login-box">
+  <div class="auth-layout page-shell">
+    <div class="auth-aside">
+      <span class="hero-badge">欢迎回来</span>
+      <h1 class="auth-title">继续你的阅读清单</h1>
+      <p class="subtle-text">登录后查看购物车、订单进度与收藏书单。</p>
+    </div>
+    <el-card class="auth-card glass-card">
       <h2>用户登录</h2>
-      <el-form :model="form" label-width="80px">
+      <el-form :model="form" label-position="top">
         <el-form-item label="用户名">
-          <el-input v-model="form.username" />
+          <el-input v-model="form.username" clearable autocomplete="username" />
         </el-form-item>
         <el-form-item label="密码">
-          <el-input v-model="form.password" type="password" />
+          <el-input
+            v-model="form.password"
+            type="password"
+            show-password
+            autocomplete="current-password"
+            @keyup.enter="handleLogin"
+          />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleLogin">登录</el-button>
-          <el-button @click="router.push('/register')">去注册</el-button>
+          <div class="auth-actions">
+            <el-button type="primary" :loading="isSubmitting" @click="handleLogin">登录</el-button>
+            <el-button @click="router.push('/register')">去注册</el-button>
+          </div>
         </el-form-item>
       </el-form>
     </el-card>
@@ -49,13 +66,7 @@ const handleLogin = async () => {
 </template>
 
 <style scoped>
-.login-container {
-  display: flex;
-  justify-content: center;
-  padding-top: 100px;
-}
-.login-box {
-  width: 500px;
-  padding: 20px;
+.auth-card {
+  width: min(420px, 100%);
 }
 </style>

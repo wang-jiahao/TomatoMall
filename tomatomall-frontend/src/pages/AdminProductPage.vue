@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref, onMounted } from 'vue'
 import axios from '@/utils/request'
 import { ElMessage, ElMessageBox } from 'element-plus'
@@ -21,33 +21,39 @@ const form = ref({
   specifications: [],
   stockpile: 0
 })
+const isLoading = ref(true)
 
 // 获取商品列表
 const loadProducts = async () => {
   try {
+    isLoading.value = true
     const res = await axios.get('/api/products')
-    products.value = await Promise.all(res.data.map(async product => {
+    const productList = res.data?.data || res.data || []
+    products.value = await Promise.all(productList.map(async product => {
       // 获取每个商品的库存信息
       const stockRes = await axios.get(`/api/products/stockpile/${product.id}`)
+      const stockData = stockRes.data?.data || stockRes.data || {}
       return {
         ...product,
-        stockpile: stockRes.data.amount
+        stockpile: stockData.amount || 0
       }
     }))
   } catch (error) {
     ElMessage.error('获取商品列表失败')
+  } finally {
+    isLoading.value = false
   }
 }
 
 // 删除商品
 const handleDelete = (id) => {
   ElMessageBox.confirm('确认删除该商品？', '警告', { type: 'warning' })
-      .then(async () => {
-        await axios.delete(`/api/products/${id}`)
-        ElMessage.success('删除成功')
-        await loadProducts()
-      })
-      .catch(() => {})
+    .then(async () => {
+      await axios.delete(`/api/products/${id}`)
+      ElMessage.success('删除成功')
+      await loadProducts()
+    })
+    .catch(() => {})
 }
 
 // 打开编辑对话框
@@ -57,7 +63,7 @@ const openEditDialog = async (product) => {
   try {
     // 获取库存信息
     const res = await axios.get(`/api/products/stockpile/${product.id}`)
-    form.value.stockpile = res.data.amount
+    form.value.stockpile = res.data?.data?.amount ?? res.data?.amount ?? 0
   } catch (error) {
     form.value.stockpile = 0
   }
@@ -70,16 +76,17 @@ const submitForm = async () => {
     let productId
     if (mode.value === 'create') {
       const createRes = await axios.post('/api/products', form.value)
-      productId=createRes.data.id
+      productId = createRes.data.id
       await axios.patch(`/api/products/stockpile/${productId}`, {
         amount: form.value.stockpile
       })
     } else {
       await axios.put('/api/products', form.value)
-      productId=form.value.id
+      productId = form.value.id
       // 更新库存
       await axios.patch(`/api/products/stockpile/${productId}`, {
-        amount: form.value.stockpile})
+        amount: form.value.stockpile
+      })
     }
     ElMessage.success('操作成功')
     dialogVisible.value = false
@@ -93,33 +100,43 @@ onMounted(loadProducts)
 </script>
 
 <template>
-  <div class="admin-product">
-    <div class="header">
-      <h1>商品管理</h1>
+  <div class="admin-product page-shell">
+    <div class="page-header">
+      <div>
+        <h1 class="section-title">商品管理</h1>
+        <p class="subtle-text">维护商品信息、价格与库存。</p>
+      </div>
       <el-button type="primary" @click="dialogVisible = true; mode = 'create'">
         新增商品
       </el-button>
     </div>
 
-    <el-table :data="products" border>
-      <el-table-column prop="id" label="ID" width="80" />
-      <el-table-column prop="title" label="商品名称" />
-      <el-table-column prop="price" label="价格" width="120" />
-      <el-table-column prop="rate" label="评分" width="120" />
-      <el-table-column prop="stockpile" label="库存" width="120" />
-      <el-table-column label="操作" width="200">
-        <template #default="{ row }">
-          <el-button size="small" @click="openEditDialog(row)">编辑</el-button>
-          <el-button size="small" type="danger" @click="handleDelete(row.id)">
-            删除
-          </el-button>
+    <el-card class="content-card table-card">
+      <el-skeleton v-if="isLoading" animated>
+        <template #template>
+          <div class="skeleton-block" style="height: 200px;"></div>
         </template>
-      </el-table-column>
-    </el-table>
+      </el-skeleton>
+      <el-table v-else :data="products" border stripe>
+        <el-table-column prop="id" label="ID" width="80" />
+        <el-table-column prop="title" label="商品名称" />
+        <el-table-column prop="price" label="价格" width="120" />
+        <el-table-column prop="rate" label="评分" width="120" />
+        <el-table-column prop="stockpile" label="库存" width="120" />
+        <el-table-column label="操作" width="200">
+          <template #default="{ row }">
+            <el-button size="small" @click="openEditDialog(row)">编辑</el-button>
+            <el-button size="small" type="danger" @click="handleDelete(row.id)">
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-card>
 
     <!-- 新增/编辑对话框 -->
     <el-dialog v-model="dialogVisible" :title="mode === 'create' ? '新增商品' : '编辑商品'">
-      <el-form :model="form" label-width="80px">
+      <el-form :model="form" label-position="top">
         <el-form-item label="商品名称" required>
           <el-input v-model="form.title" />
         </el-form-item>
@@ -131,10 +148,10 @@ onMounted(loadProducts)
         </el-form-item>
         <el-form-item label="库存数量" required>
           <el-input-number
-              v-model="form.stockpile"
-              :min="0"
-              :max="9999"
-              controls-position="right"
+            v-model="form.stockpile"
+            :min="0"
+            :max="9999"
+            controls-position="right"
           />
         </el-form-item>
         <el-form-item label="封面图">
@@ -156,9 +173,18 @@ onMounted(loadProducts)
 </template>
 
 <style scoped>
-.header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+.skeleton-block {
+  background: linear-gradient(90deg, rgba(31, 26, 22, 0.08), rgba(31, 26, 22, 0.16), rgba(31, 26, 22, 0.08));
+  border-radius: 10px;
+  animation: shimmer 1.4s ease infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
 }
 </style>
